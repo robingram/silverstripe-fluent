@@ -214,12 +214,7 @@ class FluentMigrationTask extends BuildTask
      */
     protected function getExistingFields($table)
     {
-        $query = sprintf("SHOW COLUMNS from %s", $table);
-        try {
-            return DB::query($query)->column('Field');
-        } catch (\Exception $ex) {
-            return [];
-        }
+        return array_keys(DB::field_list($table));
     }
 
     /**
